@@ -8,81 +8,136 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
+  <style>
+    .container {
+      display: flex;
+    }
+    .col {
+      flex: 1;
+    }
+    .reveal section .smaller {
+      width: 90%;
+      display: block;
+      position: relative;
+      width: 90%;
+      margin: 20px auto;
+      text-align: left;
+      font-size: 0.5em;
+      line-height: 1.2em;
+      word-wrap: break-word;
+      box-shadow: 0px 5px 15px rgb(0 0 0 / 15%);
+    }
+  </style>
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/reveal.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/theme/simple.css" id="theme">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/theme/white.css" id="theme">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/lib/css/moonkai.css">
 </head>
 
 <body>
   <div class="reveal">
     <div class="slides">
 
-      <section data-markdown>
-        <h1>Machine learning for metadata standardization</h1>
+      <section
+        data-background-image="/images/UW-lake.png"
+        data-background-image-position="bottom"
+        data-background-image-size="contain">
+        <div style="background-color: rgba(255, 255, 255, 0.2)">
+          <h1 class ="r-fit-text">Machine learning for <br /> metadata standardization</h1>
+          <p>Craven Group meeting</p>
+          <p>April 12, 2021</p>
+          <p>Yuriy Sverchkov</p>
+        </div>
+      </section>
+
+      <section>
+        <h2>Metadata standardization</h2>
+
+        <p>Often we encounter databases of items where these items are described by
+          unstructured or semi-structured metadata.</p>
+
+        <div class="fragment fade-up">
+        <p>Example: Sequence Read Archive</p>
+        <div class="container">
+          <!-- ERS1127476 -->
+          <div class="col"><pre><code data-trim>
+"age": "24",
+"cell_type": "dermal fibroblast",
+"isolate": "not applicable",
+"organism": "Homo sapiens",
+"sampling site": "shoulder",
+"sex": "female",
+"stimulus": "UV exposed"
+          </code></pre></div>
+          <!-- SRS742715 -->
+          <div class="col"><pre><code data-trim>
+"gender": "female",
+"individual": "patient2",
+"source_name": "kidney",
+"tissue": "tumor"
+          </code></pre></div>
+        </div></div>
       </section>
 
       <section data-markdown>
         <textarea data-template>
-          ## Metadata standardization
+          This makes systematic database-wide tasks challenging
 
-          Often we encounter databases of items where these items are described by unstructured or semi-structured metadata.
-
-          For example
-          * The sequence read archive (SRA)
-          * Clinical notes
-          * Others?
-
-          This creates a challenge for performing systematic tasks such as
           * finding items that fit certain parameters
           * creating summary statistics
+          * performing meta-analyses
 
-          Our goal is to develop a process to standardize the metadata to a structure that makes such tasks straightforward.
+          Our goal is to develop a process to standardize the metadata to a structure that
+          makes such tasks straightforward. <!-- .element: class="fragment fade-up" -->
         </textarea>
       </section>
 
-      <section data-markdown>
-        <textarea data-template>
-          ## Specific application: the SRA
+      <section>
+        <h2>Standardization task</h2>
+        <div class="fragment"><div class="smaller" data-markdown>
+          Key | Value
+          ---|---
+          gender | female
+          individual | patient2
+          source_name | kidney
+          tissue | tumor
+        </div></div>
+          <!--<div class="fragment"><div class="col">
+            <pre><code data-trim>
+"gender": "female",
+"individual": "patient2",
+"source_name": "kidney",
+"tissue": "tumor"
+            </code></pre>
+          </div></div> -->
+        <p class="fragment">&#8659;</p>
+        <div class="fragment"><div class="smaller" data-markdown>
+          <textarea data-template>
 
-          The sequence read archive contains sequence reads associated with tissue samples
+            Term | ID | Relation
+            ---|---|---
+            disease of cellular proliferation | DOID:14566 | has_phenotype
+            neoplasm | EFO:0000616 | has_phenotype
+            female | EFO_PATO:0000383 | has_phenotype
+            kidney | EFO_UBERON:0002113 | part_of
+            kidney | UBERON:0002113 | part_of
+            female organism | UBERON:0003100 | has_phenotype
 
-          Example metadata:
-          -todo
-        </textarea>
+          </textarea>
+        </div></div>
       </section>
 
-      <section data-markdown>
-        <textarea data-template>
-
-          ## MetaSRA
-
-          A rule based system for
-          * Mapping metadata to ontology terms
-          * Determining cell type (?)
-
-        </textarea>
-      </section>
-
-      <section data-markdown>
-        <textarea data-template>
-
-          ### Standardization goal:
-
-          show (metadata sample) -> (set of relation -to- ontology terms pairs)
-
-        </textarea>
-      </section>
-
-      <section data-markdown>
-        <textarea data-template>
-
-          ### MetaSRA pipeline
-
-          Collect ontologies -> build text reasoning graph -> extract best paths to ontology terms
-
-          * Does not extract relations
-          * Domain-specific
-
-        </textarea>
+      <section>
+        <img src="/images/metasra-title.png">
+        <div class="r-stack">
+          <img class="fragment fade-up" src="/images/metasra-task.png">
+          <div class="fragment" style="background-color: rgba(255, 255, 255, 0.7)">
+            <ul>
+              <li>Domain specific</li>
+              <li>Rule based</li>
+            </ul>
+          </div>
+        </div>
       </section>
 
       <section data-markdown>
@@ -191,9 +246,10 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/reveal.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/plugin/markdown/markdown.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/plugin/math/math.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/plugin/highlight/highlight.js"></script>
   <script>
       Reveal.initialize({
-          history: true,
+          //history: true,
           transition: 'linear',
 
           math: {
@@ -207,7 +263,7 @@
               }
           },
 
-          plugins: [RevealMath, RevealMarkdown]
+          plugins: [RevealMath, RevealMarkdown, RevealHighlight]
       });
   </script>
 
