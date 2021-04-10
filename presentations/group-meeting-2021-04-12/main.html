@@ -140,22 +140,29 @@
         </div>
       </section>
 
-      <section data-markdown>
-        <textarea data-template>
+      <section>
+        <h2>Approach</h2>
 
-          ## Research plan
-
-          1. Use ML or ML + domain agnostic rules to match/exceed the MetaSRA's performance on the ontology term extraction task
-          2. Extend our methods to the relation+term extraction task
-          3. Generalize to other domains
-
-        </textarea>
+        <div class="fragment fade-up">
+          <div class="container">
+            <div class="col">
+              <p>Variable-length text input</p>
+            </div>
+            <div class="col">
+              <p>&rArr;</p>
+            </div>
+            <div class="col">
+              <p>Variable-length ontology+relationship output</p>
+            </div>
+          </div>
+        </div>
+        <p class="fragment fade-up">Cast as classification</p>
       </section>
 
       <section data-markdown>
         <textarea data-template>
 
-          ## Initial approach
+          ## Approach
 
           Our task has variable-length input and variable-length output.
           * There are approaches for handling this (looks like machine translation)
@@ -191,7 +198,16 @@
 
           ### Features extracted
 
-          (paste from docs)
+          - Origin of matching string
+          - Pipeline steps that were applied
+          - Location of match in original string
+          - Edit distance of match
+          - Type of ontology match
+          - ID of ontology matched
+          - Bag-of-words representations of matched key and value
+          - Binary indicators for whether a match is subsumed by another and whether it is subsumed by a match that is no worse in edit distance
+          - Sample-wise bags of words for keys and values
+          - Negation feature
         </textarea>
       </section>
 
@@ -204,14 +220,24 @@
         </textarea>
       </section>
 
-      <section data-markdown>
-        <textarea data-template>
+      <section>
+        <section>
+          <h2>Evaluation metrics for ontology terms</h2>
+          <img src="/images/metasra-eval.png">
+        </section>
 
-          ### Evaluation metrics for ontology terms
-
-          (insert definitions, and if possible, an illustration)
-
-        </textarea>
+        <section data-markdown>
+          <script type="text/markdown">
+            - $\frac{|T \cap P|}{|T|} =$ all terms recall
+            - $\frac{|P \setminus T|}{|P|} =$ all terms error rate
+            - $\frac{|T' \cap P|}{|T'|} =$ pecific terms recall
+            - $\frac{|P' \setminus T|}{P'} =$ specific terms error rate
+            - $T$: set of ontology terms to which a sample maps (ground truth)
+            - $P$: set of ontology terms predicted for sample
+            - $T'$: set of most specific terms in $T$ 
+            - $P'$: set of most specific terms in $P$
+          </script>
+        </section>
       </section>
 
       <section data-markdown>
