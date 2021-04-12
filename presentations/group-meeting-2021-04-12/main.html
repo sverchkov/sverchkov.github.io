@@ -39,7 +39,7 @@
     <div class="slides">
 
       <section
-        data-background-image="/images/UW-lake.png"
+        data-background-image="/images/backgrounds/UW-lake.png"
         data-background-image-position="bottom"
         data-background-image-size="contain">
         <div style="background-color: rgba(255, 255, 255, 0.2)">
@@ -51,16 +51,17 @@
       </section>
 
       <section>
-        <h2>Metadata standardization</h2>
+        <section>
+          <h2>Metadata standardization</h2>
 
-        <p>Often we encounter databases of items where these items are described by
-          unstructured or semi-structured metadata.</p>
+          <p>Often we encounter databases of items where these items are described by
+            unstructured or semi-structured metadata.</p>
 
-        <div class="fragment fade-up">
-        <p>Example: Sequence Read Archive</p>
-        <div class="container">
-          <!-- ERS1127476 -->
-          <div class="col"><pre><code data-trim>
+          <div class="fragment fade-up">
+          <p>Example: Sequence Read Archive</p>
+          <div class="container">
+            <!-- ERS1127476 -->
+            <div class="col"><pre><code data-trim>
 "age": "24",
 "cell_type": "dermal fibroblast",
 "isolate": "not applicable",
@@ -68,69 +69,115 @@
 "sampling site": "shoulder",
 "sex": "female",
 "stimulus": "UV exposed"
-          </code></pre></div>
-          <!-- SRS742715 -->
-          <div class="col"><pre><code data-trim>
+            </code></pre></div>
+            <!-- SRS742715 -->
+            <div class="col"><pre><code data-trim>
 "gender": "female",
 "individual": "patient2",
 "source_name": "kidney",
 "tissue": "tumor"
-          </code></pre></div>
-        </div></div>
-      </section>
+            </code></pre></div>
+          </div></div>
+        </section>
 
-      <section data-markdown>
-        <textarea data-template>
-          This makes systematic database-wide tasks challenging
-
-          * finding items that fit certain parameters
-          * creating summary statistics
-          * performing meta-analyses
-
-          Our goal is to develop a process to standardize the metadata to a structure that
-          makes such tasks straightforward. <!-- .element: class="fragment fade-up" -->
-        </textarea>
-      </section>
-
-      <section>
-        <h2>Standardization task</h2>
-        <div class="fragment"><div class="smaller" data-markdown>
-          Key | Value
-          ---|---
-          gender | female
-          individual | patient2
-          source_name | kidney
-          tissue | tumor
-        </div></div>
-          <!--<div class="fragment"><div class="col">
-            <pre><code data-trim>
-"gender": "female",
-"individual": "patient2",
-"source_name": "kidney",
-"tissue": "tumor"
-            </code></pre>
-          </div></div> -->
-        <p class="fragment">&#8659;</p>
-        <div class="fragment"><div class="smaller" data-markdown>
+        <section data-markdown>
           <textarea data-template>
+            This makes systematic database-wide tasks challenging
 
-            Term | ID | Relation
-            ---|---|---
-            disease of cellular proliferation | DOID:14566 | has_phenotype
-            neoplasm | EFO:0000616 | has_phenotype
-            female | EFO_PATO:0000383 | has_phenotype
-            kidney | EFO_UBERON:0002113 | part_of
-            kidney | UBERON:0002113 | part_of
-            female organism | UBERON:0003100 | has_phenotype
+            * finding items that fit certain parameters
+            * creating summary statistics
+            * performing meta-analyses
 
+            Our goal is to develop a process to standardize the metadata to a structure that
+            makes such tasks straightforward. <!-- .element: class="fragment fade-up" -->
           </textarea>
-        </div></div>
+        </section>
       </section>
 
       <section>
-        <img src="/images/metasra-title.png">
+        <section>
+          <h2>Standardization task</h2>
+          <div class="fragment"><div class="smaller" data-markdown>
+            Key | Value
+            ---|---
+            gender | female
+            individual | patient2
+            source_name | kidney
+            tissue | tumor
+          </div></div>
+            <!--<div class="fragment"><div class="col">
+              <pre><code data-trim>
+"gender": "female",
+"individual": "patient2",
+"source_name": "kidney",
+"tissue": "tumor"
+              </code></pre>
+            </div></div> -->
+          <p class="fragment">&#8659;</p>
+          <div class="fragment"><div class="smaller" data-markdown>
+            <textarea data-template>
+
+              Term | ID | Relation
+              ---|---|---
+              disease of cellular proliferation | DOID:14566 | has_phenotype
+              neoplasm | EFO:0000616 | has_phenotype
+              female | EFO_PATO:0000383 | has_phenotype
+              kidney | EFO_UBERON:0002113 | part_of
+              kidney | UBERON:0002113 | part_of
+              female organism | UBERON:0003100 | has_phenotype
+
+            </textarea>
+          </div></div>
+        </section>
+        
+        <section>
+          <div>
+            <div class="container">
+              <div class="col">
+                <p>Variable-length text input</p>
+              </div>
+              <div class="col">
+                <p>&rArr;</p>
+              </div>
+              <div class="col">
+                <p>Variable-length ontology+relationship output</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="fragment fade-up">
+            <h2>Approach</h2>
+            <p>Cast as classification</p>
+          </div>
+
+          <div class="fragment fade-up" data-markdown style="font-size: 0.7em;">
+            <script type="text/markdown" data-template>
+              $\begin{array}{lcl}
+                \\{ \text{key}_1 &:& \text{value}_1 \\\\
+                \text{key}_2 &:& \text{value}_2 \\\\
+                &\vdots& \\\\
+                \text{key}_k &:& \text{value}_k \\}
+              \end{array}
+              \xrightarrow{\text{text matching}}
+              \begin{array}{lcl}
+                (\text{term}_1, \text{context}_1) &
+                  \xrightarrow{\text{classify}} &\text{relation}_1 \\\\
+                (\text{term}_2, \text{context}_2) &
+                  \xrightarrow{\text{classify}} &\text{relation}_2 \\\\
+                & \vdots & \\\\
+                (\text{term}_n, \text{context}_n) &
+                  \xrightarrow{\text{classify}} &\text{relation}_n
+              \end{array}$
+            </script>
+          </div>
+
+        </section>
+      </section>
+
+      <section>
+        <img src="/images/metasra/title.png">
         <div class="r-stack">
-          <img class="fragment fade-up" src="/images/metasra-task.png">
+          <img class="fragment fade-up" src="/images/metasra/task.png">
           <div class="fragment" style="background-color: rgba(255, 255, 255, 0.7)">
             <ul>
               <li>Domain specific</li>
@@ -141,96 +188,48 @@
       </section>
 
       <section>
-        <h2>Approach</h2>
+        <h2 class="r-fit-text">MetaSRA text reasoning graph</h2>
+        <img src="/images/metasra/graph.png">
+        <p class="fragment fade-up">
+          We identify candidate terms using text reasoning graph with a domain-agnostic set
+          of rules</p> 
+      </section>
 
-        <div class="fragment fade-up">
-          <div class="container">
-            <div class="col">
-              <p>Variable-length text input</p>
-            </div>
-            <div class="col">
-              <p>&rArr;</p>
-            </div>
-            <div class="col">
-              <p>Variable-length ontology+relationship output</p>
-            </div>
-          </div>
+      <section>
+        <h2>Feature groups extracted</h2>
+        <div data-markdown style="font-size: 0.7em;">
+          <script type="text/markdown" data-template>
+            - Bag-of-words representation of matched key and value
+            - Bag-of-words representation of full sample metadata
+            - Presence of negation words in matched key and value
+            - ID of ontology matched (DOID, EFO, UBERON...)
+            - Type of ontology match (name, synonym, weak synonym)
+            - Origin of matching string (key/value)
+            - Text reasoning edges used
+            - Location of match in original string
+            - Edit distance of match
+            - Whether a match is subsumed by another and whether it is
+            subsumed by a match that is no worse in edit distance
+          </script>
         </div>
-        <p class="fragment fade-up">Cast as classification</p>
       </section>
 
-      <section data-markdown>
-        <textarea data-template>
-
-          ## Approach
-
-          Our task has variable-length input and variable-length output.
-          * There are approaches for handling this (looks like machine translation)
-          * We start with a simpler approach there we convert it to a simple classification task
-
-        </textarea>
-      </section>
-
-      <section data-markdown>
-        <textarea data-template>
-
-          ### ML pipeline
-
-          1. Use a domain-agnostic text-matching pipeline to generate a set of candidate ontology term mentions for each sample
-          2. Extract features from the text reasoning path of each match
-          3. Apply off-the-shelf ML to classify the relation of each candidate mention
-        </textarea>
-      </section>
-
-      <section data-markdown>
-        <textarea data-template>
-
-          ### Candidate mention text-matching pipeline
-
-          * Uses domain-agnostic rules from MetaSRA pipeline
-          * Focuses on maximizing recall (makes as many matches as possible, rather than trying to determine best)
-
-        </textarea>
-      </section>
-
-      <section data-markdown>
-        <textarea data-template>
-
-          ### Features extracted
-
-          - Origin of matching string
-          - Pipeline steps that were applied
-          - Location of match in original string
-          - Edit distance of match
-          - Type of ontology match
-          - ID of ontology matched
-          - Bag-of-words representations of matched key and value
-          - Binary indicators for whether a match is subsumed by another and whether it is subsumed by a match that is no worse in edit distance
-          - Sample-wise bags of words for keys and values
-          - Negation feature
-        </textarea>
-      </section>
-
-      <section data-markdown>
-        <textarea data-template>
-
-          ### Classifier performance
-
-          (specific terms binary task plot)
-        </textarea>
+      <section>
+        <h2>Classifiers</h2>
+        <img src="/images/group-meeting-2021-04-12/all_terms_binary.svg">
       </section>
 
       <section>
         <section>
-          <h2>Evaluation metrics for ontology terms</h2>
-          <img src="/images/metasra-eval.png">
+          <h2 class="r-fit-text">Evaluation metrics for ontology terms</h2>
+          <img src="/images/metasra/eval.png">
         </section>
 
         <section data-markdown>
           <script type="text/markdown">
             - $\frac{|T \cap P|}{|T|} =$ all terms recall
             - $\frac{|P \setminus T|}{|P|} =$ all terms error rate
-            - $\frac{|T' \cap P|}{|T'|} =$ pecific terms recall
+            - $\frac{|T' \cap P|}{|T'|} =$ specific terms recall
             - $\frac{|P' \setminus T|}{P'} =$ specific terms error rate
             - $T$: set of ontology terms to which a sample maps (ground truth)
             - $P$: set of ontology terms predicted for sample
@@ -240,24 +239,26 @@
         </section>
       </section>
 
-      <section data-markdown>
-        <textarea data-template>
-
-          ### Classifier performance - both plots
-
-          (specific terms and all terms plots)
-
-        </textarea>
+      <section>
+        <h2>Classifier performance</h2>
+        <img src="/images/group-meeting-2021-04-12/binary.svg">
       </section>
 
-      <section data-markdown>
-        <textarea data-template>
+      <section>
+        <h2 class="r-fit-text">Multilabel classification - all terms</h2>
+      </section>
 
-          ### Classifier performance - multilabel task
+      <section>
+        <h2 class="r-fit-text">Multilabel classification - most specific terms</h2>
+          <script type="text/markdown" data-markdown>
+            # Will this render markdown?
 
-          (insert)
-
-        </textarea>
+            * Really
+            * Simplifies
+            * Things
+            * If
+            * so.
+          </script>
       </section>
 
       <section data-markdown>
