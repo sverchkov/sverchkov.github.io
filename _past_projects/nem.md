@@ -1,5 +1,6 @@
 ---
 title: Context-Specific Nested Effects Models
+layout: default
 ---
 
 ## Context-Specific Nested Effects Models

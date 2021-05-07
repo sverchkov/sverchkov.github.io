@@ -1,5 +1,6 @@
 ---
 title: Pennsylvania-Ohio Biosurveillance Grid Project (PA-OH BiG)
+layout: default
 ---
 
 ## Pennsylvania-Ohio Biosurveillance Grid Project (PA-OH BiG)

@@ -6,7 +6,6 @@ description: Assistant Scientist at the Department of Biostatistics and Medical 
 collections:
   projects:
     output: true
-    layout: default
     order:
       - tree-xai.md
       - metadata-standardization.md

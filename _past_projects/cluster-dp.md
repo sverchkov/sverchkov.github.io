@@ -1,5 +1,6 @@
 ---
 title: Spatial Cluster Detection Using Dynamic Programming
+layout: default
 ---
 
 ## Spatial Cluster Detection Using Dynamic Programming

@@ -1,5 +1,6 @@
 ---
 title: Detection and Explanation of Statistical Differences Across a Pair of Groups
+layout: default
 ---
 
 ## Detection and Explanation of Statistical Differences Across a Pair of Groups
