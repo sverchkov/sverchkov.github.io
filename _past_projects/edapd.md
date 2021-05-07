@@ -2,6 +2,8 @@
 title: Detection and Explanation of Statistical Differences Across a Pair of Groups
 ---
 
+## Detection and Explanation of Statistical Differences Across a Pair of Groups
+
 PhD Dissertation Topic.
 Dissertation Comittee: Drs.
 [Gregory F. Cooper](http://www.dbmi.pitt.edu/faculty/cooper.html) (adviser and committee chair),
