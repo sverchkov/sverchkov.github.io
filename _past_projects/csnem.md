@@ -1,9 +1,7 @@
 ---
 title: Context-Specific Nested Effects Models
-layout: default
+layout: project
 ---
-
-## Context-Specific Nested Effects Models
 
 ### Publications
 
