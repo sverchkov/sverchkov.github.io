@@ -12,8 +12,14 @@ I am interested in statistical methods, Bayesian models, stochastic models, and 
 # Ongoing Research
 
 {% for project in site.projects %}
-### {{ project.title }}
-{{ project.content }}
+### [{{ project.title }}]({{ project.url }})
+{{ project.excerpt }}
+{% endfor %}
+
+# Past Research
+
+{% for project in site.past_projects %}
+ * [{{ project.title }}]({{ project.url }})
 {% endfor %}
 
 # Publications
