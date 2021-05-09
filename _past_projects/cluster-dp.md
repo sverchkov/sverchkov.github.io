@@ -1,6 +1,8 @@
 ---
 title: Spatial Cluster Detection Using Dynamic Programming
 layout: project
+project_id: cluster-db
+last_update: 2011-08-30
 ---
 
 MS Research Project. Project Committee: Drs.

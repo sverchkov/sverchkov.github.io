@@ -1,6 +1,8 @@
 ---
 title: Detection and Explanation of Statistical Differences Across a Pair of Groups
 layout: project
+project_id: edapd
+last_update: 2014-12-30
 ---
 
 PhD Dissertation Topic.

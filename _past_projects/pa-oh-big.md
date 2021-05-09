@@ -1,6 +1,8 @@
 ---
 title: Pennsylvania-Ohio Biosurveillance Grid Project (PA-OH BiG)
 layout: project
+project_id: pa-oh-big
+last_update: 2009-11-06
 ---
 
 [Wiki](http://betaweb.rods.pitt.edu/wiki/index.php/PA-OH_Biosurveillance_Grid_Wiki) |
