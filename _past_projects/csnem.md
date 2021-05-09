@@ -1,10 +1,5 @@
 ---
 title: Context-Specific Nested Effects Models
 layout: project
+project_id: csnem
 ---
-
-### Publications
-
-### Posters and presentations
-
-* [ISMB 2016 poster](https://doi.org/10.7490/f1000research.1112661.1)

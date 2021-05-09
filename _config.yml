@@ -16,3 +16,7 @@ collections:
       - edapd.md
       - cluser-dp.md
       - pa-oh-big.md
+  presentations:
+    output: true
+  publications:
+    output: false

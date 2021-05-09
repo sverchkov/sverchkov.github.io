@@ -5,4 +5,28 @@ layout: default
 <h2>{{ page.title }}</h2>
 <p>{{ page.description }}</p>
 
+{% assign publications = site.publications | where:'project_id',page.project_id | sort:'date' | reverse %}
+{% if publications != empty%}
+<h3>Publications</h3>
+{% for item in publications %}
+<div>
+    {{ item.content }}
+</div>
+{% endfor %}
+{% endif %}
+
+{% assign presentations = site.presentations | where:'project_id',page.project_id | sort:'date' | reverse %}
+{% if presentations != empty%}
+<h3>Presentations</h3>
+<ul>
+    {% for item in presentations %}
+    <li><p>
+        <strong><a href="{{ item.url }}">{{ item.title }}</a></strong>
+        ({{ item.date | date: '%Y-%m-%d'}}) <br />
+        {{ item.description }}
+    </p></li>
+    {% endfor %}
+</ul>
+{% endif %}
+
 {{ content }}
