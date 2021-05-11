@@ -7,7 +7,7 @@ last_update: 2014-12-30
 
 PhD Dissertation Topic.
 Dissertation Comittee: Drs.
-[Gregory F. Cooper](http://www.dbmi.pitt.edu/faculty/cooper.html) (adviser and committee chair),
+[Gregory F. Cooper](https://www.dbmi.pitt.edu/person/gregory-cooper-md-phd) (adviser and committee chair),
 [Gilles Clermont](http://www.ccm.pitt.edu/directory/profile/gilles-clermont),
 [Milos Hauskrecht](http://www.cs.pitt.edu/~milos/), and
 [Shyam Visweswaran](http://www.dbmi.pitt.edu/person/shyam-visweswaran-md-phd).

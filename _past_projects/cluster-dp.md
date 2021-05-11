@@ -1,7 +1,7 @@
 ---
 title: Spatial Cluster Detection Using Dynamic Programming
 layout: project
-project_id: cluster-db
+project_id: cluster-dp
 last_update: 2011-08-30
 ---
 
