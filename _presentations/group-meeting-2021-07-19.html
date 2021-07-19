@@ -1,0 +1,246 @@
+---
+date: 2021-07-19
+title: Learning trees to explain models
+description: Informal presentation to the Craven Group
+project_id: tree-xai
+output: true
+---
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+
+  <title>Learning trees to explain models</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <style>
+    .container {
+      display: flex;
+    }
+    .col {
+      flex: 1;
+    }
+    .reveal section .smaller {
+      width: 90%;
+      display: block;
+      position: relative;
+      width: 90%;
+      margin: 20px auto;
+      text-align: left;
+      font-size: 0.5em;
+      line-height: 1.2em;
+      word-wrap: break-word;
+      box-shadow: 0px 5px 15px rgb(0 0 0 / 15%);
+    }
+  </style>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/reveal.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/theme/white.css" id="theme">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/lib/css/moonkai.css">
+</head>
+
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <section
+        data-background-image="/images/backgrounds/UW-lake.png"
+        data-background-image-position="bottom"
+        data-background-image-size="contain">
+        <div style="background-color: rgba(255, 255, 255, 0.2)">
+          <h1 class ="r-fit-text">Learning trees to <br /> explain models</h1>
+          <p>Craven Group meeting</p>
+          <p>July 19, 2021</p>
+          <p>Yuriy Sverchkov</p>
+        </div>
+      </section>
+
+      <section>
+        <section data-markdown>
+          <script type="text/markdown">
+            ## Model Explanation
+            
+            * Highly accurate supervised learning models are often difficult to interpret
+              * Deep networks
+              * Random forests
+              * Boosted models
+              * Nonlinear SVMs
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/markdown">
+            * There is a need in various settings to interpret model decisions
+              * High-stakes decision making
+                  * Medical
+                  * Financial
+                  * Legal
+              * Legal protections
+              * User trust
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/markdown">
+            ## Post-hoc model-agnostic model translation
+
+            * __Post-hoc__: given a learned model $f: \mathcal X \rightarrow \mathcal Y$
+            * __model-agnostic__: without assumptions about the inner workings of the model
+            * __model translation__: we learn a model $g$ that performs like $f$ and is interpretable
+          </script>
+        </section>
+      </section>
+
+      <section>
+        <section data-markdown>
+          <script type="text/markdown">
+            ## Decision trees: our interpretable model of choice
+
+            * Pros:
+                * Encode decision logic transparently
+                * Cover the entire feature space by design
+            * Cons:
+                * Relatively poor classifiers/regressors
+                * Accurate trees tend to be deep
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/markdown">
+            ### Decision tree learning (from training data)
+
+            * Standard: greedily grow the tree
+              * Scores: gini, entropy, variance, Bayesian
+              * Algorithm:
+                * _At each potential internal node, select a split that maximizes the score on the training data._
+                * _Stop splitting according to some criteria._
+                  * Tree depth
+                  * Data scarecity
+                  * Degenerate score
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/markdown">
+            ## Explanation tree learning
+
+            * Given a model $f: \mathcal X \rightarrow \mathcal Y$ learn a decision tree with high fidelity to $f$
+            * Following a similar algorithm to standard decision tree learning:
+                * Given a score function
+                * Algorithm:
+                    * __At each potential internal node, select a split that maximizes the score on data $(X, f(X))$__
+                        * Given a generator for $X$, we solve the data scarecity issue.
+          </script>
+        </section>
+      </section>
+
+      <section>
+        <section data-markdown>
+          <script type="text/markdown">
+            ## Variations on tree learning
+            * Discrete (thresholded) black box output vs. continuous (probability estimate)
+            * Basic (1-feature orthogonal) splits vs. Group (m-of-group) splits
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/markdown">
+            ### Information gain
+            $H = -\sum_{j=1}^m p_j \log_2 p_j$
+
+            * For discrete black-box output, $p_j$ is the frequency
+            * For continuous black-box output, $p_j$ is the mean probability estimate
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/markdown">
+            ### Group splits
+
+            * Given a hierarchy over features (ICD-9 codes), we obtained groups of features by taking the top level codes
+            * Splits on the condition of $m$ of the features in the group were true (present)
+          </script>
+        </section>
+    
+
+      </section>
+
+      <section>
+        <section>
+          <h3>Test set performance</h3>
+          <img src="/images/group-meeting-2021-07-19/asthma_fold-00_test_roc.svg">
+        </section>
+
+        <section>
+          <h3>Test set performance (probability models only)</h3>
+          <img src="/images/group-meeting-2021-07-19/p_only/asthma_fold-00_test_roc.svg">
+        </section>
+
+        <section>
+          <h3>Test set performance</h3>
+          <img src="/images/group-meeting-2021-07-19/asthma_fold-00_test_pr.svg">
+        </section>
+
+        <section>
+          <h3>Test set performance (probability models only)</h3>
+          <img src="/images/group-meeting-2021-07-19/p_only/asthma_fold-00_test_pr.svg">
+        </section>
+
+        <section>
+          <h3>Fidelity comparison</h3>
+          <div data-markdown style="font-size: medium;">
+            <script type="text/markdown">
+              | Splits | Synthetic samples | Black box output     | Spearman's $\rho$ |
+              |--------|-------------------|----------------------|-------------------|
+              | Basic  | None | Threshold at 0.5 | 0.2056 |
+              |  | Up to 5000 per split |  | 0.2186 |
+              | Group | None |  | 0.1301 |
+              | | Up to 5000 per split |  | 0.1442 |
+              | Basic  | Up to 5000 per split | Calibrated threshold | 0.4624 |
+              | Group  |  |  | 0.5964 |
+              | Basic  |  | Probability estimate | 0.8154 |
+              | Group  |  |  | 0.8656 |
+            </script>
+          </div>
+        </section>
+
+        <section>
+          <h3>Agreement plot</h3>
+          <img src="/images/group-meeting-2021-07-19/p_only/asthma_fold-00_test_agreement.svg">
+        </section>
+
+      </section>
+
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/reveal.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/plugin/markdown/markdown.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/plugin/math/math.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/plugin/highlight/highlight.js"></script>
+  <script>
+      Reveal.initialize({
+
+          //history: true,
+          transition: 'linear',
+
+          math: {
+              // mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
+              config: 'TeX-AMS_HTML-full',
+              TeX: {
+                  Macros: {
+                      R: '\\mathbb{R}',
+                      set: ['\\left\\{#1 \\; ; \\; #2\\right\\}', 2]
+                  }
+              }
+          },
+
+          plugins: [RevealMath, RevealMarkdown, RevealHighlight]
+      });
+  </script>
+
+</body>
+
+</html>
